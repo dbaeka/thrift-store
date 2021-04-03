@@ -1,0 +1,66 @@
+.overlay {
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100vh; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  background-image: url("../images/auth/left-section-image.png"), linear-gradient(180deg, rgba(144, 144, 233, 0.1) 0%, rgba(99, 59, 99, 0.1) 100%);
+  background-blend-mode: luminosity;
+  background-size: cover;
+}
+
+body {
+  font-family: 'Gilroy', sans-serif;
+}
+
+.title {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+  letter-spacing: 0.5px;
+  /* gray900 */
+  color: #1A1A1A;
+}
+
+.sub-title {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  /* identical to box height, or 133% */
+
+  letter-spacing: 0.4px;
+
+  /* gray500 */
+  color: #999999;
+}
+
+.login-title {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 20px;
+  line-height: 23px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: 0.0015em;
+
+  /* gray900 */
+  color: #1A1A1A;
+}
+
+.login-form {
+  padding: 5em;
+}
+
+.login-form-label {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+  color: #262626;
+}
+
+.login-button {
+  font-size: 14px;
+}
