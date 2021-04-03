@@ -17,3 +17,9 @@ module.exports = withCSS( withSass( withImages({
         ],
     },
 })));
+
+module.exports = {
+    future: {
+        webpack5: true,
+    },
+}

@@ -5,18 +5,18 @@
 |
 | The user will get the link to this view per mail. It includes userId, hash,
 | expiration data and signature in the url, which will be sent to the api upon
-| mount of the app. If the email verification was successfull, the user will be
+| mount of the app. If the email verification was successful, the user will be
 | redirected to the dashboard.
 |
 */
 
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { verifyEmail } from "../../../../../store/auth/authActions";
-import { Card } from "./../../../../../components/Card/Card";
-import { H1 } from "./../../../../../components/Typography/Headers";
-import { SmallSpinner } from "./../../../../../components/Spinner/Spinner";
+import { verifyEmail } from "@/store/auth/authActions";
+import { Card } from "@/components/Card/Card";
+import { H1 } from "@/components/Typography/Headers";
+import { SmallSpinner } from "@/components/Spinner/Spinner";
 
 function VerifyPassword(props: any) {
     const router = useRouter();
@@ -29,10 +29,11 @@ function VerifyPassword(props: any) {
     });
 
     // Send api request to api upon mount of the component.
+    // @ts-ignore
     useEffect(async () => {
         const res = await props.verifyEmail(userID, hash, expires, signature);
 
-        // Successfull verification.
+        // Successful verification.
         if (res.success) {
             setState({
                 ...state,

@@ -1,12 +1,11 @@
-import { useState, setState } from "react";
-import { Card } from "../../../components/Card/Card";
-import { TextInput } from "../../../components/Form/FormElement";
-import { H1 } from "../../../components/Typography/Headers";
-import { UserValidator } from "../../../services/UserValidator";
-import { PrimaryButton } from "../../../components/Button/Button";
+import React, { useState } from "react";
+import { Card } from "@/components/Card/Card";
+import { TextInput } from "@/components/Form/FormElement";
+import { H1 } from "@/components/Typography/Headers";
+import { PrimaryButton } from "@/components/Button/Button";
 import { connect } from "react-redux";
-import { forgotPassword } from "../../../store/auth/authActions";
-import { Alert } from "./../../../components/Alert/Alert";
+import { forgotPassword } from "@/store/auth/authActions";
+import { Alert } from "@/components/Alert/Alert";
 
 function ForgotPassword(props: any) {
     const [formData, setFormData] = useState({
@@ -92,7 +91,7 @@ function ForgotPassword(props: any) {
                         {/* Submit Button */}
                         <PrimaryButton
                             onClick={() => {
-                                submit();
+                                submit().then(() => "");
                             }}
                         >
                             Submit
