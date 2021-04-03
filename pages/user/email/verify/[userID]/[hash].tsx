@@ -10,105 +10,144 @@
 |
 */
 
-import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { verifyEmail } from "@/store/auth/authActions";
-import { Card } from "@/components/Card/Card";
-import { H1 } from "@/components/Typography/Headers";
-import { SmallSpinner } from "@/components/Spinner/Spinner";
+import {useRouter} from "next/router";
+import React, {useState, useEffect} from "react";
+import {connect} from "react-redux";
+import {verifyEmail} from "@/store/auth/authActions";
+import {TextInput} from "@/components/Form/FormElement";
+import {PrimaryButton} from "@/components/Button/Button";
+import {UserValidator} from "@/services/UserValidator";
 
 function VerifyPassword(props: any) {
     const router = useRouter();
-    const { expires, signature, userID, hash } = router.query;
+    const {expires, signature, userID, hash} = router.query;
 
     // State.
     const [state, setState] = useState({
         error: "",
-        loading: true,
+        loaded: false
+    })
+
+    const [formData, setFormData] = useState({
+        email: "",
+        emailError: "",
     });
 
+    //TODO
     // Send api request to api upon mount of the component.
     // @ts-ignore
-    useEffect(async () => {
-        const res = await props.verifyEmail(userID, hash, expires, signature);
+    // useEffect(async () => {
+    //     // const res = await props.verifyEmail(userID, hash, expires, signature);
+    //
+    //     // Successful verification.
+    //     // if (res.success) {
+    //     //     setState({
+    //     //         ...state,
+    //     //         loading: false,
+    //     //         error: "",
+    //     //     });
+    //
+    //         // Redirect to Home route of the user after 3 seconds.
+    //         // setTimeout(() => {
+    //         //     router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
+    //         // }, 3000);
+    //         // return;
+    //     // }
+    //
+    //     // Set error message if verification failed.
+    //     // if (res.error) {
+    //     //     setState({
+    //     //         ...state,
+    //     //         loading: false,
+    //     //         error: res.error,
+    //     //     });
+    //     // }
+    // }, []);
 
-        // Successful verification.
-        if (res.success) {
-            setState({
-                ...state,
-                loading: false,
-                error: "",
+
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.currentTarget.name]: e.currentTarget.value,
+            emailError: "",
+        });
+    };
+
+    /**
+     * Submit the form.
+     */
+    const submit = () => {
+        const userValidator = new UserValidator();
+        const {email} = formData;
+
+        // Check for valid email address.
+        const isEmailValid = userValidator.validateEmail(email);
+        if (!isEmailValid) {
+            setFormData({
+                ...formData,
+                emailError: "Please provide a valid email address",
             });
-
-            // Redirect to Home route of the user after 3 seconds.
-            setTimeout(() => {
-                router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
-            }, 3000);
             return;
         }
+        setState({
+            ...state,
+            loaded: true
+        });
 
-        // Set error message if verification failed.
-        if (res.error) {
-            setState({
-                ...state,
-                loading: false,
-                error: res.error,
-            });
-        }
-    }, []);
+        setTimeout(() => {
+            router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
+        }, 3000);
 
-    /**
-     * Set the text for the H1 header depending on verification status.
-     */
-    const headerText = () => {
-        if (state.loading) {
-            return "We are currently validating your email address...";
-        } else if (!state.loading && !state.error) {
-            return "Verification successfull!";
-        }
-        return "Verification failed!";
+        // Make API call if everything is fine.
+        props.verifyEmail(userID, hash, expires, signature);
     };
-    const header = headerText();
-
-    /**
-     * Set the text for the paragraph depending on verification status.
-     */
-    const paragraphText = () => {
-        if (state.loading) {
-            return "";
-        } else if (!state.loading && !state.error) {
-            return "Perfect! You will be redirected shortly....";
-        }
-        return "Sorry, something went wrong!";
-    };
-    const paragraph = paragraphText();
 
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                {/* Card */}
-                <Card
-                    additionalInnerClasses="justify-center items-center"
-                    additionalWrapperClasses="bg-gray-100"
+            <div
+                className="w-full">
+                <div
+                    className="d-flex flex-column justify-center items-center"
                 >
                     <>
                         {/* Header */}
-                        <H1 withMargin={true} center={true}>
-                            {header}
-                        </H1>
-
-                        {/* Paragraph */}
-                        <p>
-                            {" "}
-                            {<SmallSpinner show={state.loading} />}{" "}
-                            <span>{paragraph}</span>
-                        </p>
+                        <div className="login-title mt-5">
+                            Verify e-mail address
+                        </div>
+                        <form className="login-form pt-4">
+                            {/* Email */}
+                            <TextInput
+                                type="text"
+                                value={formData.email}
+                                placeholder="name@company.com"
+                                onChange={(e) => {
+                                    handleInputChange(e);
+                                }}
+                                labelClasses="login-form-label"
+                                label="E-mail address"
+                                name="email"
+                                errorMsg={formData.emailError}
+                            />
+                            {/* Submit Button */}
+                            <PrimaryButton
+                                additionalClasses="mt-4 login-button"
+                                onClick={() => {
+                                    submit();
+                                }}
+                            >
+                                Send e-mail
+                            </PrimaryButton>
+                            {state.loaded && !state.error && (
+                                <div
+                                    className="text-sm text-center mt-3 p-2 text-lavender-500 rounded bg-lavender-100">
+                                    Check your mail for an e-mail to reset your password
+                                </div>)}
+                        </form>
                     </>
-                </Card>
+                </div>
             </div>
         </div>
     );
 }
 
-export default connect(null, { verifyEmail })(VerifyPassword);
+export default connect(null, {verifyEmail})(VerifyPassword);

@@ -39,8 +39,8 @@ module.exports = {
                 900: '#881e88',
             },
             lavender: {
-                50: '#fceffc',
-                100: '#fce2fc',
+                50: '#e0e0f6',
+                100: '#b6b6ec',
                 200: '#8c8cdd',
                 300: '#6e6ed0',
                 400: '#4f4fdd',

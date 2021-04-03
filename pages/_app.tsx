@@ -53,7 +53,7 @@ function MyApp(props: any) {
     return (
         <Provider store={store}>
             <props.Component {...props.pageProps} />
-            {!isNoProtectedRoute && <AdvancedFooter/>}
+            {/*{!isNoProtectedRoute && <AdvancedFooter/>}*/}
         </Provider>
     );
 }

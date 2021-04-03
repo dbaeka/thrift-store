@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { Card } from "@/components/Card/Card";
-import { TextInput } from "@/components/Form/FormElement";
-import { H1 } from "@/components/Typography/Headers";
-import { PrimaryButton } from "@/components/Button/Button";
-import { connect } from "react-redux";
-import { forgotPassword } from "@/store/auth/authActions";
-import { Alert } from "@/components/Alert/Alert";
+import React, {useState} from "react";
+import {TextInput} from "@/components/Form/FormElement";
+import {PrimaryButton} from "@/components/Button/Button";
+import {connect} from "react-redux";
+import {forgotPassword} from "@/store/auth/authActions";
+import {Alert} from "@/components/Alert/Alert";
+import {UserValidator} from "@/services/UserValidator";
 
 function ForgotPassword(props: any) {
     const [formData, setFormData] = useState({
-        email: "",
-        emailError: "",
+        password: "",
+        rePassword: "",
+        secretAnswer: "",
+        passwordError: "",
+        rePasswordError: "",
+        secretAnswerError: "",
         notificationAlert: {
             type: "",
             msg: "",
@@ -21,85 +24,101 @@ function ForgotPassword(props: any) {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
-            emailError: "",
         });
     };
 
     const submit = async () => {
-        // const userValidator = new UserValidator();
-        // const isEmailValid = userValidator.validateEmail(formData.email);
-        // if (!isEmailValid) {
+        const userValidator = new UserValidator();
+        // const res = await props.forgotPassword(formData.password);
+        // if (res.error) {
         //     setFormData({
         //         ...formData,
-        //         emailError: "Please enter a valid email address.",
+        //         notificationAlert: {
+        //             type: "danger",
+        //             msg: res.error,
+        //         },
         //     });
-        //     return;
+        // } else if (res.success) {
+        //     setFormData({
+        //         ...formData,
+        //         notificationAlert: {
+        //             type: "success",
+        //             msg: res.success,
+        //         },
+        //     });
         // }
-        const res = await props.forgotPassword(formData.email);
-        if (res.error) {
-            setFormData({
-                ...formData,
-                notificationAlert: {
-                    type: "danger",
-                    msg: res.error,
-                },
-            });
-        } else if (res.success) {
-            setFormData({
-                ...formData,
-                notificationAlert: {
-                    type: "success",
-                    msg: res.success,
-                },
-            });
-        }
-        console.log(res);
+        // console.log(res);
     };
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Card
-                    additionalInnerClasses="justify-center items-center"
-                    additionalWrapperClasses="bg-gray-100"
+            <div className="w-full">
+                <div className="d-flex flex-column justify-center items-center"
                 >
                     <>
+                        <div
+                            className="login-title mt-5">Reset password
+                        </div>
                         {/* Alert message. */}
                         {formData.notificationAlert.type && (
                             <Alert type={formData.notificationAlert.type}>
                                 {formData.notificationAlert.msg}
                             </Alert>
                         )}
-                        <H1 withMargin={true} center={true}>
-                            Forgot your password?
-                        </H1>
-                        <p>
-                            Enter your email and we will send you a link to
-                            reset your password.
-                        </p>
-                        {/* Email */}
-                        <TextInput
-                            type="text"
-                            value={formData.email}
-                            placeholder="Your email address..."
-                            onChange={(e) => {
-                                handleInputChange(e);
-                            }}
-                            name="email"
-                            errorMsg={formData.emailError}
-                        />
+                        <form className="login-form pt-4">
+                            <TextInput
+                                type="text"
+                                value={formData.secretAnswer}
+                                placeholder="secret answer"
+                                onChange={(e) => {
+                                    handleInputChange(e);
+                                }}
+                                labelClasses="login-form-label"
+                                label="What is the name of your dog?"
+                                name="secretAnswer"
+                                errorMsg={formData.secretAnswerError}
+                            />
+                            {/* New Password */}
+                            <TextInput
+                                type="password"
+                                value={formData.password}
+                                placeholder="new password"
+                                onChange={(e) => {
+                                    handleInputChange(e);
+                                }}
+                                labelClasses="login-form-label mt-4"
+                                label="New Password"
+                                name="password"
+                                errorMsg={formData.passwordError}
+                            />
+                            {/* Confirm Password */}
+                            <TextInput
+                                type="password"
+                                value={formData.rePassword}
+                                placeholder="retype password"
+                                onChange={(e) => {
+                                    handleInputChange(e);
+                                }}
+                                labelClasses="login-form-label mt-4"
+                                label="Confirm Password"
+                                name="rePassword"
+                                errorMsg={formData.rePasswordError}
+                            />
 
-                        {/* Submit Button */}
-                        <PrimaryButton
-                            onClick={() => {
-                                submit().then(() => "");
-                            }}
-                        >
-                            Submit
-                        </PrimaryButton>
+                            {/* Submit Button */}
+                            <PrimaryButton
+                                additionalClasses="mt-4 login-button"
+                                onClick={() => {
+                                    submit().then(() => "");
+                                }}
+                            >
+                                Reset password
+                            </PrimaryButton>
+                        </form>
                     </>
-                </Card>
+                </div>
             </div>
         </div>
     );
 }
-export default connect(null, { forgotPassword })(ForgotPassword);
+
+export default connect(null, {forgotPassword})(ForgotPassword);

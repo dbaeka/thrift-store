@@ -125,11 +125,12 @@ const Login = (props: any) => {
                     </div>
                     <div className="mt-5 pt-5 d-flex flex-column justify-content-center">
                         <div
-                            className="login-title">{stage == 0 ? "Log in to your account" : "Enter PIN sent to you via SMS"}</div>
+                            className="login-title">{stage == 0 ? "Log in to your account" : "Enter PIN sent to you via SMS"}
+                        </div>
                         {props.loginError &&
                         (<div className="text-center text-red-500">{props.loginError}</div>)}
                     </div>
-                    <div className={"login-form " + (stage == 1 ? "pt-2" : "")}>
+                    <form className={"login-form " + (stage == 1 ? "pt-2" : "")}>
                         <div>
                             {/* Email */}
                             {stage == 0 && (<TextInput
@@ -221,7 +222,7 @@ const Login = (props: any) => {
                                 </a>
                             </div>)}
                         </div>
-                    </div>
+                    </form>
                 </Col>
             </Row>
         </div>
