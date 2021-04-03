@@ -82,9 +82,10 @@ MyApp.getInitialProps = async ({ctx}) => {
     if (!req || !pathname || !res) {
         return {};
     }
-
-    const authenticator = new AuthGuard();
-    return await authenticator.authenticateUser(req, res, pathname);
+//TODO
+    return {}
+    // const authenticator = new AuthGuard();
+    // return await authenticator.authenticateUser(req, res, pathname);
 };
 
 export default MyApp;
