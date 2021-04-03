@@ -34,21 +34,22 @@ function MyApp(props: any) {
         return !router.pathname.startsWith(route);
     });
 
+    //TODO
     // Handle current user in redux.
-    useEffect(() => {
-        // Store current user if we have one.
-        if (props.user) {
-            store.dispatch({
-                type: types.USER_LOADED,
-                payload: props.user,
-            });
-            return;
-        }
-        // Dispatch user loading error if no user is present.
-        store.dispatch({
-            type: types.USER_LOADED_ERROR,
-        });
-    }, []);
+    // useEffect(() => {
+    //     // Store current user if we have one.
+    //     if (props.user) {
+    //         store.dispatch({
+    //             type: types.USER_LOADED,
+    //             payload: props.user,
+    //         });
+    //         return;
+    //     }
+    //     // Dispatch user loading error if no user is present.
+    //     store.dispatch({
+    //         type: types.USER_LOADED_ERROR,
+    //     });
+    // }, []);
 
     return (
         <Provider store={store}>
