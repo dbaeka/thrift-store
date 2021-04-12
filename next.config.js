@@ -3,7 +3,7 @@ const withCSS = require('@zeit/next-css');
 const withSass = require('@zeit/next-sass');
 const withImages = require('next-images');
 
-module.exports = withCSS( withSass( withImages({
+module.exports = withCSS(withSass(withImages({
     module: {
         rules: [
             {
@@ -23,3 +23,10 @@ module.exports = {
         webpack5: true,
     },
 }
+
+module.exports = withImages({
+    fileExtensions: ["jpg", "jpeg", "png", "gif"],
+    webpack(config, options) {
+        return config
+    }
+})

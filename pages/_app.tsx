@@ -1,6 +1,7 @@
 import "tailwindcss/tailwind.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/app.scss";
+import '../fonts/icons/thrift/style.css';
 import React from "react";
 import store from "@/store/store";
 import {Provider} from "react-redux";
@@ -9,10 +10,10 @@ import {AuthGuard} from "@/services/Auth/AuthGuard";
 import {useEffect} from "react";
 import * as types from "@/store/actionTypes";
 import TagManager from "react-gtm-module";
-import {Navbar} from "@/components/Navigation/Navbar";
 import {AdvancedFooter} from "@/components/Navigation/Footer";
 import {useRouter} from "next/router";
 import {protectedRoutes} from "../config/config";
+import {AdminNavbar} from "@/components/Navigation/AdminNavbar";
 
 require("./../config/config.tsx");
 
@@ -34,6 +35,8 @@ function MyApp(props: any) {
         return !router.pathname.startsWith(route);
     });
 
+    const isAdminRoute = router.pathname.startsWith('/dashboard');
+
     //TODO
     // Handle current user in redux.
     // useEffect(() => {
@@ -53,6 +56,7 @@ function MyApp(props: any) {
 
     return (
         <Provider store={store}>
+            {isAdminRoute && <AdminNavbar/>}
             <props.Component {...props.pageProps} />
             {/*{!isNoProtectedRoute && <AdvancedFooter/>}*/}
         </Provider>

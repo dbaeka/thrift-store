@@ -35,7 +35,7 @@ module.exports = {
                 500: '#ba81ba',
                 600: '#a262a2',
                 700: '#a547a5',
-                800: '#922a92',
+                800: '#432843',
                 900: '#881e88',
             },
             lavender: {
@@ -186,7 +186,9 @@ module.exports = {
             DEFAULT: '1',
         },
         fontFamily: {
+            gilroy: ['Gilroy', 'sans-serif'],
             sans: [
+                'Gilroy',
                 'ui-sans-serif',
                 'system-ui',
                 '-apple-system',

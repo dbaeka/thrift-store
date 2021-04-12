@@ -9,11 +9,11 @@
 */
 
 import Link from "next/link";
-import { useState } from "react";
+import {useState} from "react";
 import PropTypes from "prop-types";
 
 /**
- * The default nabvar.
+ * The default navbar.
  */
 export function Navbar() {
     const [showSidebar, toggleSidebar] = useState(false);
@@ -30,7 +30,7 @@ export function Navbar() {
     return (
         <>
             {/* The Menu Bar that the horizontal bar at the top of the screen that is shown on all breakpoints. It includes the logo als well as the Burger Menu */}
-            <MenuBar onClick={toggleNavbar} />
+            <MenuBar onClick={toggleNavbar}/>
             <div
                 className={`h-screen w-full md:w-1/2 lg:w-1/3 xl:w-1/4 fixed top-0 right-0 transition-all bg-purple-50 ${sidebarOffset} flex flex-col items-center justiy-start z-50 shadow-lg pt-8 pb-16 px-10`}
             >
@@ -53,7 +53,7 @@ export function Navbar() {
                         />
                     </svg>
                 </div>
-                <NavbarMenuLink title="Home" link="/" onClick={toggleNavbar} />
+                <NavbarMenuLink title="Home" link="/" onClick={toggleNavbar}/>
                 <NavbarMenuLink
                     title="Documentation"
                     link="/docs"
@@ -89,7 +89,7 @@ export function MegaMenu() {
     return (
         <>
             {/* The Menu Bar that the horizontal bar at the top of the screen that is shown on all breakpoints. It includes the logo als well as the Burger Menu */}
-            <MenuBar onClick={toggleNavbar} />
+            <MenuBar onClick={toggleNavbar}/>
             <div
                 className={`h-screen w-screen fixed top-0 right-0 transition-all bg-purple-50 ${sidebarOffset} flex flex-col items-center justiy-start z-50 shadow-lg pt-8 pb-16 px-10`}
             >
@@ -112,7 +112,7 @@ export function MegaMenu() {
                         />
                     </svg>
                 </div>
-                <NavbarMenuLink title="Home" link="/" onClick={toggleNavbar} />
+                <NavbarMenuLink title="Home" link="/" onClick={toggleNavbar}/>
                 <NavbarMenuLink
                     title="Documentation"
                     link="/docs"
@@ -137,7 +137,7 @@ export function MegaMenu() {
  * A Link that can be displayed in the menu.
  * @param {object} props
  */
-export function NavbarMenuLink({ title, link, onClick }) {
+export function NavbarMenuLink({title, link, onClick}) {
     return (
         <Link href={link}>
             <h4
@@ -149,6 +149,7 @@ export function NavbarMenuLink({ title, link, onClick }) {
         </Link>
     );
 }
+
 NavbarMenuLink.propTypes = {
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
@@ -156,7 +157,7 @@ NavbarMenuLink.propTypes = {
 };
 
 // The horizontal menu bar.
-export function MenuBar({ onClick }) {
+export function MenuBar({onClick}) {
     return (
         <nav className="w-screen py-3 px-2 flex sticky top-0 items-center justify-between bg-purple-50 z-40">
             <Link href="/">
@@ -181,6 +182,7 @@ export function MenuBar({ onClick }) {
         </nav>
     );
 }
+
 MenuBar.propTypes = {
     onClick: PropTypes.func.isRequired
 };

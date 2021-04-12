@@ -8,11 +8,12 @@ import { useRouter } from "next/router";
 function Dashboard(props: any) {
     const router = useRouter();
     const [checked, setChecked] = useState(false);
-    useEffect(() => {
-        if (!props.isAuthenticated) {
-            router.push("/user/login");
-        }
-    }, [props.isAuthenticated]);
+    //TODO
+    // useEffect(() => {
+    //     if (!props.isAuthenticated) {
+    //         router.push("/user/login");
+    //     }
+    // }, [props.isAuthenticated]);
     return (
         <>
             <div>Dashboard</div>
